@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORPHEUS 0.0</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: #2D2D2D;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    #title {
+      color: #39FF14;
+      font-size: 4rem;
+      font-weight: bold;
+      text-shadow:
+        0 0 5px #39FF14,
+        0 0 15px #39FF14,
+        0 0 30px #39FF14,
+        0 0 60px #39FF14;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+    }
+
+    #cursor {
+      display: inline-block;
+      width: 0.55em;
+      height: 1em;
+      background-color: #39FF14;
+      box-shadow:
+        0 0 5px #39FF14,
+        0 0 15px #39FF14;
+      vertical-align: text-bottom;
+      margin-left: 4px;
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+
+    #datetime {
+      color: #39FF14;
+      font-size: 1rem;
+      margin-top: 1.2rem;
+      opacity: 0.7;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 8px #39FF14;
+    }
+  </style>
+</head>
+<body>
+  <div id="title">ORPHEUS 0.0<span id="cursor"></span></div>
+  <div id="datetime"></div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const months = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+      const day  = days[now.getDay()];
+      const date = now.getDate();
+      const mon  = months[now.getMonth()];
+      const yr   = now.getFullYear();
+      const hh   = String(now.getHours()).padStart(2,'0');
+      const mm   = String(now.getMinutes()).padStart(2,'0');
+      const ss   = String(now.getSeconds()).padStart(2,'0');
+      document.getElementById('datetime').textContent =
+        `${day}, ${mon} ${date}, ${yr}  —  ${hh}:${mm}:${ss}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
